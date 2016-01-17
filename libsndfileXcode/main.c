@@ -20,13 +20,18 @@ int main(void)
     printf("frames     = %d \n", (int)sfinfo.frames);
 
     float *buffer;
-    buffer = malloc(sfinfo.channels*(int)sfinfo.frames*sizeof(float));
+    buffer = malloc(sfinfo.channels*BUFSIZE*sizeof(float));
 
-    int numframes = (int) sf_readf_float(fp, buffer, sfinfo.frames);
-    for(int i=0;i<numframes;i++) {
-        printf("%f \n", buffer[i]);
+    int numframes;
+    int totalnumframes = 0;
+    while ((numframes = (int) sf_readf_float(fp, buffer, BUFSIZE)) > 0) {
+        for(int i=0;i<numframes;i++) {
+            printf("%f \n", buffer[i]);
+        }
+        printf("numframes = %d \n", numframes);
+        totalnumframes += numframes;
     }
-    printf("numframes = %d \n", numframes);
+    printf("totalnumframes = %d \n", totalnumframes);
     sf_close(fp);
     
     return 0;
