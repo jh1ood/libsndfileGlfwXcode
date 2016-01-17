@@ -12,6 +12,7 @@
 float* buffer;
 float* fftwindow;
 int numframes;
+int ww, hh;
 fftw_complex *in, *out;
 fftw_plan p;
 
@@ -23,18 +24,18 @@ void display()
     glClear(GL_COLOR_BUFFER_BIT);
     
     glLineWidth(2.0);
-    glColor3d(1.0, 1.0, 0.0);
+    glColor3d(1.0, 1.0, 0.3);
     glBegin(GL_LINE_STRIP);
-    for(int i=0;i<200;i+=2) {
-        glVertex2d((float)i/200.0, buffer[iskip*i+NFFT*irep]);
+    for(int i=0;i<ww;i+=2) {
+        glVertex2d((float)i/(float)ww, buffer[iskip*i+NFFT*irep]);
     }
     glEnd();
 
     glLineWidth(2.0);
     glColor3d(0.0, 1.0, 1.0);
     glBegin(GL_LINE_STRIP);
-    for(int i=1;i<200;i+=2) {
-        glVertex2d((float)i/200.0, buffer[iskip*i+NFFT*irep]);
+    for(int i=1;i<ww;i+=2) {
+        glVertex2d((float)i/(float)ww, buffer[iskip*i+NFFT*irep]);
     }
     glEnd();
     
@@ -65,7 +66,7 @@ void display()
         glEnd();
     }
 
-    glFlush();
+    glutSwapBuffers();
     
     if(irep++ > numframes/NFFT - 1) {
         irep = 0;
@@ -75,6 +76,8 @@ void display()
 
 void resize(int w, int h)
 {
+    ww = w;
+    hh = h;
     glViewport(0, 0, w, h);
     glLoadIdentity();
     glOrtho(0.0, 1.0, -1.1, 1.1, -1.0, 1.0);
@@ -91,7 +94,7 @@ int main(int argc, char *argv[])
     SNDFILE *fp;
     SF_INFO sfinfo;
     
-    if( (fp = sf_open("/Users/user1/11025and7kHzA.wav", SFM_READ, &sfinfo)) == NULL) {
+    if( (fp = sf_open("/Users/user1/11025and7kHz.wav", SFM_READ, &sfinfo)) == NULL) {
         printf("error: file not found.\n");
         return 1;
     };
@@ -114,11 +117,11 @@ int main(int argc, char *argv[])
     p = fftw_plan_dft_1d(NFFT, in, out, FFTW_FORWARD, FFTW_ESTIMATE);
 
     glutInit( &argc, argv );
-    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGBA | GLUT_DEPTH);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
     glutInitWindowPosition(20, 60);
     glutInitWindowSize(1000, 600);
     glutCreateWindow("libsndfileXcode");
-    glClearColor(0.7, 0.8, 0.7, 1.0);
+    glClearColor(0.8, 0.8, 0.7, 1.0);
     glutDisplayFunc(display);
     glutReshapeFunc(resize);
     glutIdleFunc(idle);
