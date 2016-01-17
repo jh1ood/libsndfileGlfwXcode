@@ -11,13 +11,15 @@ int numframes;
 
 void display()
 {
+    static int irep = 0;
+    
     glClear(GL_COLOR_BUFFER_BIT);
     
     glLineWidth(1.0);
     glColor3d(1.0, 1.0, 1.0);
     glBegin(GL_LINE_STRIP);
     for(int i=0;i<200;i++) {
-        glVertex2d((float)i/200.0, buffer[i]);
+        glVertex2d((float)i/200.0, buffer[i+irep]);
     }
     glEnd();
     
@@ -25,7 +27,7 @@ void display()
     glColor3d(1.0, 1.0, 0.0);
     glBegin(GL_LINE_STRIP);
     for(int i=0;i<200;i+=2) {
-        glVertex2d((float)i/200.0, buffer[i]);
+        glVertex2d((float)i/200.0, buffer[i+irep]);
     }
     glEnd();
 
@@ -33,10 +35,14 @@ void display()
     glColor3d(0.0, 1.0, 1.0);
     glBegin(GL_LINE_STRIP);
     for(int i=1;i<200;i+=2) {
-        glVertex2d((float)i/200.0, buffer[i]);
+        glVertex2d((float)i/200.0, buffer[i+irep]);
     }
     glEnd();
     glFlush();
+    
+    if(irep++>BUFSIZE-200) {
+        irep = 0;
+    }
 }
 
 void resize(int w, int h)
@@ -44,6 +50,11 @@ void resize(int w, int h)
     glViewport(0, 0, w, h);
     glLoadIdentity();
     glOrtho(0.0, 1.0, -1.1, 1.1, -1.0, 1.0);
+}
+
+void idle(void)
+{
+    glutPostRedisplay();
 }
 
 int main(int argc, char *argv[])
@@ -81,6 +92,7 @@ int main(int argc, char *argv[])
     glClearColor(0.5, 0.8, 0.0, 1.0);
     glutDisplayFunc(display);
     glutReshapeFunc(resize);
+    glutIdleFunc(idle);
     glutMainLoop();
     
     sf_close(fp);
