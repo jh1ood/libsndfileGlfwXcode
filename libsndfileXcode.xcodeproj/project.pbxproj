@@ -11,6 +11,7 @@
 		7F9B4C0D1C4B173C0015D8C1 /* libsndfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9B4C0C1C4B173C0015D8C1 /* libsndfile.a */; };
 		7F9B4C101C4B4BD20015D8C1 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9B4C0F1C4B4BD20015D8C1 /* OpenGL.framework */; };
 		7F9B4C121C4B4BDB0015D8C1 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9B4C111C4B4BDB0015D8C1 /* GLUT.framework */; };
+		7F9B4C151C4B86EF0015D8C1 /* libfftw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9B4C141C4B86EF0015D8C1 /* libfftw3.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -32,6 +33,8 @@
 		7F9B4C0E1C4B17610015D8C1 /* sndfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sndfile.h; path = ../../../../opt/local/include/sndfile.h; sourceTree = "<group>"; };
 		7F9B4C0F1C4B4BD20015D8C1 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		7F9B4C111C4B4BDB0015D8C1 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
+		7F9B4C131C4B86CC0015D8C1 /* fftw3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fftw3.h; path = ../../../../opt/local/include/fftw3.h; sourceTree = "<group>"; };
+		7F9B4C141C4B86EF0015D8C1 /* libfftw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfftw3.a; path = ../../../../opt/local/lib/libfftw3.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +44,7 @@
 			files = (
 				7F9B4C121C4B4BDB0015D8C1 /* GLUT.framework in Frameworks */,
 				7F9B4C101C4B4BD20015D8C1 /* OpenGL.framework in Frameworks */,
+				7F9B4C151C4B86EF0015D8C1 /* libfftw3.a in Frameworks */,
 				7F9B4C0D1C4B173C0015D8C1 /* libsndfile.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -54,6 +58,8 @@
 				7F9B4C111C4B4BDB0015D8C1 /* GLUT.framework */,
 				7F9B4C0F1C4B4BD20015D8C1 /* OpenGL.framework */,
 				7F9B4C0E1C4B17610015D8C1 /* sndfile.h */,
+				7F9B4C131C4B86CC0015D8C1 /* fftw3.h */,
+				7F9B4C141C4B86EF0015D8C1 /* libfftw3.a */,
 				7F9B4C0C1C4B173C0015D8C1 /* libsndfile.a */,
 				7F9B4C031C4B16870015D8C1 /* libsndfileXcode */,
 				7F9B4C021C4B16870015D8C1 /* Products */,
