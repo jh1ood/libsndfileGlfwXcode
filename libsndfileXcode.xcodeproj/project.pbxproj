@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		7F9B4C051C4B16870015D8C1 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 7F9B4C041C4B16870015D8C1 /* main.c */; };
 		7F9B4C0D1C4B173C0015D8C1 /* libsndfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9B4C0C1C4B173C0015D8C1 /* libsndfile.a */; };
+		7F9B4C101C4B4BD20015D8C1 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9B4C0F1C4B4BD20015D8C1 /* OpenGL.framework */; };
+		7F9B4C121C4B4BDB0015D8C1 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9B4C111C4B4BDB0015D8C1 /* GLUT.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,6 +30,8 @@
 		7F9B4C041C4B16870015D8C1 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		7F9B4C0C1C4B173C0015D8C1 /* libsndfile.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsndfile.a; path = ../../../../opt/local/lib/libsndfile.a; sourceTree = "<group>"; };
 		7F9B4C0E1C4B17610015D8C1 /* sndfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sndfile.h; path = ../../../../opt/local/include/sndfile.h; sourceTree = "<group>"; };
+		7F9B4C0F1C4B4BD20015D8C1 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		7F9B4C111C4B4BDB0015D8C1 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +39,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7F9B4C121C4B4BDB0015D8C1 /* GLUT.framework in Frameworks */,
+				7F9B4C101C4B4BD20015D8C1 /* OpenGL.framework in Frameworks */,
 				7F9B4C0D1C4B173C0015D8C1 /* libsndfile.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -45,6 +51,8 @@
 		7F9B4BF81C4B16870015D8C1 = {
 			isa = PBXGroup;
 			children = (
+				7F9B4C111C4B4BDB0015D8C1 /* GLUT.framework */,
+				7F9B4C0F1C4B4BD20015D8C1 /* OpenGL.framework */,
 				7F9B4C0E1C4B17610015D8C1 /* sndfile.h */,
 				7F9B4C0C1C4B173C0015D8C1 /* libsndfile.a */,
 				7F9B4C031C4B16870015D8C1 /* libsndfileXcode */,
