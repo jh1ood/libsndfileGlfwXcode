@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7F9B4C051C4B16870015D8C1 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 7F9B4C041C4B16870015D8C1 /* main.c */; };
+		7F9B4C0D1C4B173C0015D8C1 /* libsndfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9B4C0C1C4B173C0015D8C1 /* libsndfile.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +26,8 @@
 /* Begin PBXFileReference section */
 		7F9B4C011C4B16870015D8C1 /* libsndfileXcode */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = libsndfileXcode; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F9B4C041C4B16870015D8C1 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		7F9B4C0C1C4B173C0015D8C1 /* libsndfile.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsndfile.a; path = ../../../../opt/local/lib/libsndfile.a; sourceTree = "<group>"; };
+		7F9B4C0E1C4B17610015D8C1 /* sndfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sndfile.h; path = ../../../../opt/local/include/sndfile.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +35,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7F9B4C0D1C4B173C0015D8C1 /* libsndfile.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -41,6 +45,8 @@
 		7F9B4BF81C4B16870015D8C1 = {
 			isa = PBXGroup;
 			children = (
+				7F9B4C0E1C4B17610015D8C1 /* sndfile.h */,
+				7F9B4C0C1C4B173C0015D8C1 /* libsndfile.a */,
 				7F9B4C031C4B16870015D8C1 /* libsndfileXcode */,
 				7F9B4C021C4B16870015D8C1 /* Products */,
 			);
@@ -207,6 +213,10 @@
 		7F9B4C091C4B16870015D8C1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/opt/local/lib,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -214,6 +224,10 @@
 		7F9B4C0A1C4B16870015D8C1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/opt/local/lib,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
