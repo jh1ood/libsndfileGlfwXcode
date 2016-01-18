@@ -102,6 +102,7 @@ void display()
     glEnd();
     }
 
+/*
     glLineWidth(1.0);
     glColor3d(0.0, 0.0, 0.0);
     for(int i=0;i<20;i++) {
@@ -111,15 +112,33 @@ void display()
         glVertex2d( 1.0,value/90);
         glEnd();
     }
+*/
 
-    for (int j = 0; j < 6; ++j) {
+    glLineWidth(1.0);
+    glColor3d(0.8, 1.0, 0.8);
+    for(int i=0;i<20;i++) {
+        float value = 10.0*(i-10);
         glBegin(GL_QUADS);
+        GLdouble vertexwrk[4][3];
+        vertexwrk[0][0] = -1.0; vertexwrk[0][1] = value/90; vertexwrk[0][2] = -0.00;
+        vertexwrk[1][0] = -1.0; vertexwrk[1][1] = value/90; vertexwrk[1][2] =  0.02;
+        vertexwrk[2][0] =  1.0; vertexwrk[2][1] = value/90; vertexwrk[2][2] =  0.02;
+        vertexwrk[3][0] =  1.0; vertexwrk[3][1] = value/90; vertexwrk[3][2] = -0.00;
+        glVertex3dv(vertexwrk[0]);
+        glVertex3dv(vertexwrk[1]);
+        glVertex3dv(vertexwrk[2]);
+        glVertex3dv(vertexwrk[3]);
+        glEnd();
+    }
+    
+    glBegin(GL_QUADS);
+    for (int j = 0; j < 6; ++j) {
         for (int i = 0; i < 4; ++i) {
             glColor3dv(color[(i+j) % 6]);
             glVertex3dv(vertex[face[j][i]]);
         }
-        glEnd();
     }
+    glEnd();
 
     glutSwapBuffers();
     
@@ -156,7 +175,7 @@ int main(int argc, char *argv[])
     SNDFILE *fp;
     SF_INFO sfinfo;
     
-    if( (fp = sf_open("/Users/user1/test.wav", SFM_READ, &sfinfo)) == NULL) {
+    if( (fp = sf_open("/Users/user1/11025and7kHzA.wav", SFM_READ, &sfinfo)) == NULL) {
         printf("error: file not found.\n");
         return 1;
     };
@@ -168,7 +187,6 @@ int main(int argc, char *argv[])
     fftwindow = malloc(NFFT*sizeof(int));
     for(int i=0;i<NFFT;i++) {
         fftwindow[i] = 0.50 - 0.50*cos(2.0*PI*(float)i/(float)(NFFT-1));
-//        fftwindow[i] = 0.54 - 0.46*cos(2.0*PI*(float)i/(float)(NFFT-1));
     }
 
     numframes = (int) sf_readf_float(fp, buffer, (int)sfinfo.frames);
