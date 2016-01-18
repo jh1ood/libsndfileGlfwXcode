@@ -17,14 +17,14 @@ fftw_complex *in, *out;
 fftw_plan p;
 
 GLdouble vertex[][3] = {
-    { 0.0, 0.0, 0.0 },
-    { 1.0, 0.0, 0.0 },
-    { 1.0, 1.0, 0.0 },
-    { 0.0, 1.0, 0.0 },
-    { 0.0, 0.0, 1.0 },
-    { 1.0, 0.0, 1.0 },
-    { 1.0, 1.0, 1.0 },
-    { 0.0, 1.0, 1.0 }
+    { 0.5, 0.5, 0.2 },
+    { 1.0, 0.5, 0.2 },
+    { 1.0, 1.0, 0.2 },
+    { 0.5, 1.0, 0.2 },
+    { 0.5, 0.5, 0.7 },
+    { 1.0, 0.5, 0.7 },
+    { 1.0, 1.0, 0.7 },
+    { 0.5, 1.0, 0.7 }
 };
 
 int edge[][2] = {
@@ -42,15 +42,32 @@ int edge[][2] = {
     { 3, 7 }
 };
 
+int face[][4] = {
+    { 0, 1, 2, 3 },
+    { 1, 5, 6, 2 },
+    { 5, 4, 7, 6 },
+    { 4, 0, 3, 7 },
+    { 4, 5, 1, 0 },
+    { 3, 2, 6, 7 }
+};
+
+GLdouble color[][3] = {
+    { 1.0, 0.0, 0.0 }, /* 赤 */
+    { 0.0, 1.0, 0.0 }, /* 緑 */
+    { 0.0, 0.0, 1.0 }, /* 青 */
+    { 1.0, 1.0, 0.0 }, /* 黄 */
+    { 1.0, 0.0, 1.0 }, /* マゼンタ */
+    { 0.0, 1.0, 1.0 }  /* シアン 　*/
+};
 void display()
 {
     static int irep = 44100*0;
     int iskip = 1;
     
-    glClear(GL_COLOR_BUFFER_BIT);
-    glRotatef(0.1, 1.0, 0.0, 0.0);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glRotatef(0.2, 1.0, 0.0, 0.0);
     glRotatef(0.2, 0.0, 1.0, 0.0);
-    glRotatef(0.1, 0.0, 0.0, 1.0);
+    glRotatef(0.2, 0.0, 0.0, 1.0);
     
     glLineWidth(2.0);
     glColor3d(1.0, 1.0, 0.3);
@@ -94,13 +111,25 @@ void display()
         glVertex2d( 1.0,value/90);
         glEnd();
     }
-
+/*
     glLineWidth(3.0);
     glColor3f(1.0, 1.0, 1.0);
     for (int i = 0; i < 12; ++i) {
+        if(i < 4) glColor3f(1.0, 1.0, 1.0);
+        else if(i < 8) glColor3f(1.0, 0.0, 1.0);
+        else glColor3f(0.0, 1.0, 0.0);
         glBegin(GL_LINE_LOOP);
         glVertex3dv(vertex[edge[i][0]]);
         glVertex3dv(vertex[edge[i][1]]);
+        glEnd();
+    }
+*/
+    for (int j = 0; j < 6; ++j) {
+        glBegin(GL_QUADS);
+        glColor3dv(color[j]);
+        for (int i = 0; i < 4; ++i) {
+            glVertex3dv(vertex[face[j][i]]);
+        }
         glEnd();
     }
 
@@ -119,7 +148,10 @@ void resize(int w, int h)
     glViewport(0, 0, w, h);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho(-1.5, 1.5, -1.5, 1.5, -1.5, 1.5);
+    glOrtho(-1.5, 1.5, -1.5, 1.5, -2.5, 2.5);
+//    gluPerspective(45.0, (double)w / (double)h, 1.0, 100.0);
+//    gluLookAt(0.0, 0.0, -10.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+//    glTranslated(0.0, 0.0, -5.0);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
@@ -136,7 +168,7 @@ int main(int argc, char *argv[])
     SNDFILE *fp;
     SF_INFO sfinfo;
     
-    if( (fp = sf_open("/Users/user1/11025and7kHzA.wav", SFM_READ, &sfinfo)) == NULL) {
+    if( (fp = sf_open("/Users/user1/test.wav", SFM_READ, &sfinfo)) == NULL) {
         printf("error: file not found.\n");
         return 1;
     };
@@ -159,11 +191,12 @@ int main(int argc, char *argv[])
     p = fftw_plan_dft_1d(NFFT, in, out, FFTW_FORWARD, FFTW_ESTIMATE);
 
     glutInit( &argc, argv );
-    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
     glutInitWindowPosition(80, 80);
     glutInitWindowSize(800, 800);
     glutCreateWindow("libsndfileXcode");
     glClearColor(0.8, 0.8, 0.7, 1.0);
+    glEnable(GL_DEPTH_TEST);
     glutDisplayFunc(display);
     glutReshapeFunc(resize);
     glutIdleFunc(idle);
