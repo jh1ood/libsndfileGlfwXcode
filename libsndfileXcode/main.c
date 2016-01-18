@@ -4,7 +4,7 @@
 #include <math.h>
 #include <GLUT/glut.h>
 #include "fftw3.h"
-#import "sndfile.h"
+#include "sndfile.h"
 #define PI 3.14159265
 #define BUFSIZE 4096
 #define NFFT 4096
@@ -94,7 +94,7 @@ int main(int argc, char *argv[])
     SNDFILE *fp;
     SF_INFO sfinfo;
     
-    if( (fp = sf_open("/Users/user1/11025and7kHz.wav", SFM_READ, &sfinfo)) == NULL) {
+    if( (fp = sf_open("/Users/user1/11025and7kHzA.wav", SFM_READ, &sfinfo)) == NULL) {
         printf("error: file not found.\n");
         return 1;
     };
