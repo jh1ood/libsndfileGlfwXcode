@@ -111,23 +111,11 @@ void display()
         glVertex2d( 1.0,value/90);
         glEnd();
     }
-/*
-    glLineWidth(3.0);
-    glColor3f(1.0, 1.0, 1.0);
-    for (int i = 0; i < 12; ++i) {
-        if(i < 4) glColor3f(1.0, 1.0, 1.0);
-        else if(i < 8) glColor3f(1.0, 0.0, 1.0);
-        else glColor3f(0.0, 1.0, 0.0);
-        glBegin(GL_LINE_LOOP);
-        glVertex3dv(vertex[edge[i][0]]);
-        glVertex3dv(vertex[edge[i][1]]);
-        glEnd();
-    }
-*/
+
     for (int j = 0; j < 6; ++j) {
         glBegin(GL_QUADS);
-        glColor3dv(color[j]);
         for (int i = 0; i < 4; ++i) {
+            glColor3dv(color[(i+j) % 6]);
             glVertex3dv(vertex[face[j][i]]);
         }
         glEnd();
