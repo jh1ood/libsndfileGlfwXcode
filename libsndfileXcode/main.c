@@ -16,12 +16,40 @@ int ww, hh;
 fftw_complex *in, *out;
 fftw_plan p;
 
+GLdouble vertex[][3] = {
+    { 0.0, 0.0, 0.0 },
+    { 1.0, 0.0, 0.0 },
+    { 1.0, 1.0, 0.0 },
+    { 0.0, 1.0, 0.0 },
+    { 0.0, 0.0, 1.0 },
+    { 1.0, 0.0, 1.0 },
+    { 1.0, 1.0, 1.0 },
+    { 0.0, 1.0, 1.0 }
+};
+
+int edge[][2] = {
+    { 0, 1 },
+    { 1, 2 },
+    { 2, 3 },
+    { 3, 0 },
+    { 4, 5 },
+    { 5, 6 },
+    { 6, 7 },
+    { 7, 4 },
+    { 0, 4 },
+    { 1, 5 },
+    { 2, 6 },
+    { 3, 7 }
+};
+
 void display()
 {
     static int irep = 44100*0;
     int iskip = 1;
     
     glClear(GL_COLOR_BUFFER_BIT);
+    glRotatef(0.1, 1.0, 0.0, 0.0);
+    glRotatef(0.2, 0.0, 1.0, 0.0);
     glRotatef(0.1, 0.0, 0.0, 1.0);
     
     glLineWidth(2.0);
@@ -67,6 +95,15 @@ void display()
         glEnd();
     }
 
+    glLineWidth(3.0);
+    glColor3f(1.0, 1.0, 1.0);
+    for (int i = 0; i < 12; ++i) {
+        glBegin(GL_LINE_LOOP);
+        glVertex3dv(vertex[edge[i][0]]);
+        glVertex3dv(vertex[edge[i][1]]);
+        glEnd();
+    }
+
     glutSwapBuffers();
     
     if(irep++ > numframes/NFFT - 1) {
@@ -82,7 +119,10 @@ void resize(int w, int h)
     glViewport(0, 0, w, h);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho(-2.0, 2.0, -2.0, 2.0, -1.0, 1.0);
+    glOrtho(-1.5, 1.5, -1.5, 1.5, -1.5, 1.5);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+
 }
 
 void idle(void)
