@@ -22,12 +22,13 @@ void display()
     int iskip = 1;
     
     glClear(GL_COLOR_BUFFER_BIT);
+    glRotatef(0.1, 0.0, 0.0, 1.0);
     
     glLineWidth(2.0);
     glColor3d(1.0, 1.0, 0.3);
     glBegin(GL_LINE_STRIP);
     for(int i=0;i<ww;i+=2) {
-        glVertex2d((float)i/(float)ww, buffer[iskip*i+NFFT*irep]);
+        glVertex2d(2.0*(float)i/(float)ww - 1.0, buffer[iskip*i+NFFT*irep]);
     }
     glEnd();
 
@@ -35,7 +36,7 @@ void display()
     glColor3d(0.0, 1.0, 1.0);
     glBegin(GL_LINE_STRIP);
     for(int i=1;i<ww;i+=2) {
-        glVertex2d((float)i/(float)ww, buffer[iskip*i+NFFT*irep]);
+        glVertex2d(2.0*(float)i/(float)ww - 1.0, buffer[iskip*i+NFFT*irep]);
     }
     glEnd();
     
@@ -51,7 +52,7 @@ void display()
     glBegin(GL_LINE_STRIP);
     for(int i=0;i<NFFT/2;i++) {
         float value = 10.0*log10(out[i][0]*out[i][0] + out[i][1]*out[i][1]);
-        glVertex2d((float)i/(float)(NFFT/2), value/90.0);
+        glVertex2d(2.0*(float)i/(float)(NFFT/2) - 1.0, value/90.0);
     }
     glEnd();
     }
@@ -61,8 +62,8 @@ void display()
     for(int i=0;i<20;i++) {
         float value = 10.0*(i-10);
         glBegin(GL_LINE_STRIP);
-        glVertex2d(0.0,value/90);
-        glVertex2d(1.0,value/90);
+        glVertex2d(-1.0,value/90);
+        glVertex2d( 1.0,value/90);
         glEnd();
     }
 
@@ -79,8 +80,9 @@ void resize(int w, int h)
     ww = w;
     hh = h;
     glViewport(0, 0, w, h);
+    glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho(0.0, 1.0, -1.1, 1.1, -1.0, 1.0);
+    glOrtho(-2.0, 2.0, -2.0, 2.0, -1.0, 1.0);
 }
 
 void idle(void)
@@ -118,8 +120,8 @@ int main(int argc, char *argv[])
 
     glutInit( &argc, argv );
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
-    glutInitWindowPosition(20, 60);
-    glutInitWindowSize(1000, 600);
+    glutInitWindowPosition(80, 80);
+    glutInitWindowSize(800, 800);
     glutCreateWindow("libsndfileXcode");
     glClearColor(0.8, 0.8, 0.7, 1.0);
     glutDisplayFunc(display);
