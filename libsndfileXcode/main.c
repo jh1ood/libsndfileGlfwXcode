@@ -52,12 +52,12 @@ int face[][4] = {
 };
 
 GLdouble color[][3] = {
-    { 1.0, 0.0, 0.0 }, /* 赤 */
-    { 0.0, 1.0, 0.0 }, /* 緑 */
-    { 0.0, 0.0, 1.0 }, /* 青 */
-    { 1.0, 1.0, 0.0 }, /* 黄 */
-    { 1.0, 0.0, 1.0 }, /* マゼンタ */
-    { 0.0, 1.0, 1.0 }  /* シアン 　*/
+    { 1.0, 0.0, 0.0 },
+    { 0.0, 1.0, 0.0 },
+    { 0.0, 0.0, 1.0 },
+    { 1.0, 1.0, 0.0 },
+    { 1.0, 0.0, 1.0 },
+    { 0.0, 1.0, 1.0 }
 };
 void display()
 {
@@ -85,13 +85,14 @@ void display()
     }
     glEnd();
     
-    for(int ich=0;ich<2;ich++) {
+for(int ich=0;ich<2;ich++) {
     for(int i=0;i<NFFT;i++) {
         in[i][0] = buffer[2*i+ich+NFFT*irep] * fftwindow[i];
         in[i][1] = 0.0;
     }
     fftw_execute(p);
-    
+
+/*
     glLineWidth(1.0);
     glColor3d(1.0*ich, 0.0, 1.0*(1-ich));
     glBegin(GL_LINE_STRIP);
@@ -100,7 +101,31 @@ void display()
         glVertex2d(2.0*(float)i/(float)(NFFT/2) - 1.0, value/90.0);
     }
     glEnd();
+*/
+
+    glColor3d(1.0*ich, 0.0, 1.0*(1-ich));
+    glBegin(GL_LINE_STRIP);
+    float value, valueb4 = 0.0;
+    for(int i=0;i<NFFT/2;i++) {
+        value = 10.0*log10(out[i][0]*out[i][0] + out[i][1]*out[i][1]);
+        if(i>0) {
+        glBegin(GL_QUADS);
+        GLdouble vertexwrk[4][3];
+        vertexwrk[0][0] = 2.0*(float) i   /(float)(NFFT/2) - 1.0; vertexwrk[0][1] = value  /90; vertexwrk[0][2] = -0.00;
+        vertexwrk[1][0] = 2.0*(float) i   /(float)(NFFT/2) - 1.0; vertexwrk[1][1] = value  /90; vertexwrk[1][2] =  0.05;
+        vertexwrk[2][0] = 2.0*(float)(i-1)/(float)(NFFT/2) - 1.0; vertexwrk[2][1] = valueb4/90; vertexwrk[2][2] =  0.05;
+        vertexwrk[3][0] = 2.0*(float)(i-1)/(float)(NFFT/2) - 1.0; vertexwrk[3][1] = valueb4/90; vertexwrk[3][2] = -0.00;
+        glVertex3dv(vertexwrk[0]);
+        glVertex3dv(vertexwrk[1]);
+        glVertex3dv(vertexwrk[2]);
+        glVertex3dv(vertexwrk[3]);
+        glEnd();
+        }
+        valueb4 = value;
+    
     }
+    glEnd();
+}
 
 /*
     glLineWidth(1.0);
@@ -114,7 +139,6 @@ void display()
     }
 */
 
-    glLineWidth(1.0);
     glColor3d(0.8, 1.0, 0.8);
     for(int i=0;i<20;i++) {
         float value = 10.0*(i-10);
