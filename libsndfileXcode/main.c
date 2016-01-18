@@ -92,17 +92,6 @@ for(int ich=0;ich<2;ich++) {
     }
     fftw_execute(p);
 
-/*
-    glLineWidth(1.0);
-    glColor3d(1.0*ich, 0.0, 1.0*(1-ich));
-    glBegin(GL_LINE_STRIP);
-    for(int i=0;i<NFFT/2;i++) {
-        float value = 10.0*log10(out[i][0]*out[i][0] + out[i][1]*out[i][1]);
-        glVertex2d(2.0*(float)i/(float)(NFFT/2) - 1.0, value/90.0);
-    }
-    glEnd();
-*/
-
     glColor3d(1.0*ich, 0.0, 1.0*(1-ich));
     glBegin(GL_LINE_STRIP);
     float value, valueb4 = 0.0;
@@ -112,8 +101,8 @@ for(int ich=0;ich<2;ich++) {
         glBegin(GL_QUADS);
         GLdouble vertexwrk[4][3];
         vertexwrk[0][0] = 2.0*(float) i   /(float)(NFFT/2) - 1.0; vertexwrk[0][1] = value  /90; vertexwrk[0][2] = -0.00;
-        vertexwrk[1][0] = 2.0*(float) i   /(float)(NFFT/2) - 1.0; vertexwrk[1][1] = value  /90; vertexwrk[1][2] =  0.05;
-        vertexwrk[2][0] = 2.0*(float)(i-1)/(float)(NFFT/2) - 1.0; vertexwrk[2][1] = valueb4/90; vertexwrk[2][2] =  0.05;
+        vertexwrk[1][0] = 2.0*(float) i   /(float)(NFFT/2) - 1.0; vertexwrk[1][1] = value  /90; vertexwrk[1][2] =  0.20;
+        vertexwrk[2][0] = 2.0*(float)(i-1)/(float)(NFFT/2) - 1.0; vertexwrk[2][1] = valueb4/90; vertexwrk[2][2] =  0.20;
         vertexwrk[3][0] = 2.0*(float)(i-1)/(float)(NFFT/2) - 1.0; vertexwrk[3][1] = valueb4/90; vertexwrk[3][2] = -0.00;
         glVertex3dv(vertexwrk[0]);
         glVertex3dv(vertexwrk[1]);
@@ -126,18 +115,6 @@ for(int ich=0;ich<2;ich++) {
     }
     glEnd();
 }
-
-/*
-    glLineWidth(1.0);
-    glColor3d(0.0, 0.0, 0.0);
-    for(int i=0;i<20;i++) {
-        float value = 10.0*(i-10);
-        glBegin(GL_LINE_STRIP);
-        glVertex2d(-1.0,value/90);
-        glVertex2d( 1.0,value/90);
-        glEnd();
-    }
-*/
 
     glColor3d(0.8, 1.0, 0.8);
     for(int i=0;i<20;i++) {
@@ -180,9 +157,6 @@ void resize(int w, int h)
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glOrtho(-1.5, 1.5, -1.5, 1.5, -2.5, 2.5);
-//    gluPerspective(45.0, (double)w / (double)h, 1.0, 100.0);
-//    gluLookAt(0.0, 0.0, -10.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
-//    glTranslated(0.0, 0.0, -5.0);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
@@ -199,7 +173,7 @@ int main(int argc, char *argv[])
     SNDFILE *fp;
     SF_INFO sfinfo;
     
-    if( (fp = sf_open("/Users/user1/11025and7kHzA.wav", SFM_READ, &sfinfo)) == NULL) {
+    if( (fp = sf_open("/Users/user1/test.wav", SFM_READ, &sfinfo)) == NULL) {
         printf("error: file not found.\n");
         return 1;
     };
