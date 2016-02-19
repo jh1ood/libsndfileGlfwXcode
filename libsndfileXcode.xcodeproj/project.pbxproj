@@ -7,11 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7F5D368E1C75A79A00BC3CB9 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F5D368D1C75A79A00BC3CB9 /* CoreVideo.framework */; };
+		7F5D36901C75A7A500BC3CB9 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F5D368F1C75A7A500BC3CB9 /* Cocoa.framework */; };
+		7F5D36921C75A7B200BC3CB9 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F5D36911C75A7B200BC3CB9 /* IOKit.framework */; };
 		7F9B4C051C4B16870015D8C1 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 7F9B4C041C4B16870015D8C1 /* main.c */; };
-		7F9B4C0D1C4B173C0015D8C1 /* libsndfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9B4C0C1C4B173C0015D8C1 /* libsndfile.a */; };
 		7F9B4C101C4B4BD20015D8C1 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9B4C0F1C4B4BD20015D8C1 /* OpenGL.framework */; };
 		7F9B4C121C4B4BDB0015D8C1 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9B4C111C4B4BDB0015D8C1 /* GLUT.framework */; };
-		7F9B4C151C4B86EF0015D8C1 /* libfftw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9B4C141C4B86EF0015D8C1 /* libfftw3.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -27,14 +28,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		7F5D368D1C75A79A00BC3CB9 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		7F5D368F1C75A7A500BC3CB9 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		7F5D36911C75A7B200BC3CB9 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		7F9B4C011C4B16870015D8C1 /* libsndfileXcode */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = libsndfileXcode; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F9B4C041C4B16870015D8C1 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
-		7F9B4C0C1C4B173C0015D8C1 /* libsndfile.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsndfile.a; path = ../../../../opt/local/lib/libsndfile.a; sourceTree = "<group>"; };
-		7F9B4C0E1C4B17610015D8C1 /* sndfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sndfile.h; path = ../../../../opt/local/include/sndfile.h; sourceTree = "<group>"; };
 		7F9B4C0F1C4B4BD20015D8C1 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		7F9B4C111C4B4BDB0015D8C1 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
-		7F9B4C131C4B86CC0015D8C1 /* fftw3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fftw3.h; path = ../../../../opt/local/include/fftw3.h; sourceTree = "<group>"; };
-		7F9B4C141C4B86EF0015D8C1 /* libfftw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfftw3.a; path = ../../../../opt/local/lib/libfftw3.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,10 +42,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7F9B4C121C4B4BDB0015D8C1 /* GLUT.framework in Frameworks */,
+				7F5D368E1C75A79A00BC3CB9 /* CoreVideo.framework in Frameworks */,
+				7F5D36901C75A7A500BC3CB9 /* Cocoa.framework in Frameworks */,
+				7F5D36921C75A7B200BC3CB9 /* IOKit.framework in Frameworks */,
 				7F9B4C101C4B4BD20015D8C1 /* OpenGL.framework in Frameworks */,
-				7F9B4C151C4B86EF0015D8C1 /* libfftw3.a in Frameworks */,
-				7F9B4C0D1C4B173C0015D8C1 /* libsndfile.a in Frameworks */,
+				7F9B4C121C4B4BDB0015D8C1 /* GLUT.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -55,12 +56,11 @@
 		7F9B4BF81C4B16870015D8C1 = {
 			isa = PBXGroup;
 			children = (
+				7F5D36911C75A7B200BC3CB9 /* IOKit.framework */,
+				7F5D368F1C75A7A500BC3CB9 /* Cocoa.framework */,
+				7F5D368D1C75A79A00BC3CB9 /* CoreVideo.framework */,
 				7F9B4C111C4B4BDB0015D8C1 /* GLUT.framework */,
 				7F9B4C0F1C4B4BD20015D8C1 /* OpenGL.framework */,
-				7F9B4C0E1C4B17610015D8C1 /* sndfile.h */,
-				7F9B4C131C4B86CC0015D8C1 /* fftw3.h */,
-				7F9B4C141C4B86EF0015D8C1 /* libfftw3.a */,
-				7F9B4C0C1C4B173C0015D8C1 /* libsndfile.a */,
 				7F9B4C031C4B16870015D8C1 /* libsndfileXcode */,
 				7F9B4C021C4B16870015D8C1 /* Products */,
 			);
@@ -227,9 +227,20 @@
 		7F9B4C091C4B16870015D8C1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include,
+					/opt/local/include,
+				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/opt/local/lib,
+					/usr/local/lib,
+				);
+				OTHER_LDFLAGS = (
+					"-lglfw3",
+					"-lGLEW",
+					"-lsndfile",
+					"-lfftw3",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -238,9 +249,20 @@
 		7F9B4C0A1C4B16870015D8C1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include,
+					/opt/local/include,
+				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/opt/local/lib,
+					/usr/local/lib,
+				);
+				OTHER_LDFLAGS = (
+					"-lglfw3",
+					"-lGLEW",
+					"-lsndfile",
+					"-lfftw3",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -265,6 +287,7 @@
 				7F9B4C0A1C4B16870015D8C1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -2,9 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#include <GLUT/glut.h>
-#include "fftw3.h"
-#include "sndfile.h"
+#include <GLFW/glfw3.h>
+#include <fftw3.h>
+#include <sndfile.h>
 #define PI 3.14159265
 #define BUFSIZE 4096
 #define NFFT 4096
@@ -15,6 +15,17 @@ int numframes;
 int ww, hh;
 fftw_complex *in, *out;
 fftw_plan p;
+
+static void error_callback(int error, const char* description)
+{
+    fputs(description, stderr);
+}
+
+static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
+    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+        glfwSetWindowShouldClose(window, GL_TRUE);
+}
 
 GLdouble vertex[][3] = {
     { 0.5, 0.5, 0.2 },
@@ -59,15 +70,11 @@ GLdouble color[][3] = {
     { 1.0, 0.0, 1.0 },
     { 0.0, 1.0, 1.0 }
 };
+
 void display()
 {
     static int irep = 44100*0;
     int iskip = 1;
-    
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glRotatef(0.2, 1.0, 0.0, 0.0);
-    glRotatef(0.2, 0.0, 1.0, 0.0);
-    glRotatef(0.2, 0.0, 0.0, 1.0);
     
     glLineWidth(2.0);
     glColor3d(1.0, 1.0, 0.3);
@@ -141,30 +148,10 @@ for(int ich=0;ich<2;ich++) {
     }
     glEnd();
 
-    glutSwapBuffers();
-    
     if(irep++ > numframes/NFFT - 1) {
         irep = 0;
         printf("irep reset \n");
     }
-}
-
-void resize(int w, int h)
-{
-    ww = w;
-    hh = h;
-    glViewport(0, 0, w, h);
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    glOrtho(-1.5, 1.5, -1.5, 1.5, -2.5, 2.5);
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-
-}
-
-void idle(void)
-{
-    glutPostRedisplay();
 }
 
 int main(int argc, char *argv[])
@@ -173,7 +160,7 @@ int main(int argc, char *argv[])
     SNDFILE *fp;
     SF_INFO sfinfo;
     
-    if( (fp = sf_open("/Users/user1/test.wav", SFM_READ, &sfinfo)) == NULL) {
+    if( (fp = sf_open("/Users/user1/Music/10kHzand7kHz.wav", SFM_READ, &sfinfo)) == NULL) {
         printf("error: file not found.\n");
         return 1;
     };
@@ -194,18 +181,52 @@ int main(int argc, char *argv[])
     out = (fftw_complex*) fftw_malloc(sizeof(fftw_complex) * NFFT);
     p = fftw_plan_dft_1d(NFFT, in, out, FFTW_FORWARD, FFTW_ESTIMATE);
 
-    glutInit( &argc, argv );
-    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
-    glutInitWindowPosition(80, 80);
-    glutInitWindowSize(800, 800);
-    glutCreateWindow("libsndfileXcode");
-    glClearColor(0.8, 0.8, 0.7, 1.0);
-    glEnable(GL_DEPTH_TEST);
-    glutDisplayFunc(display);
-    glutReshapeFunc(resize);
-    glutIdleFunc(idle);
-    glutMainLoop();
+
+    GLFWwindow* window;
+    glfwSetErrorCallback(error_callback);
+    if (!glfwInit())
+        exit(EXIT_FAILURE);
+    window = glfwCreateWindow(640, 640, "libsndfileGlfwXcode", NULL, NULL);
+    if (!window)
+    {
+        glfwTerminate();
+        exit(EXIT_FAILURE);
+    }
+    glfwMakeContextCurrent(window);
+    glfwSwapInterval(1);
+    glfwSetKeyCallback(window, key_callback);
     
+    glEnable(GL_DEPTH_TEST);
+    glClearColor(0.5f, 0.6f, 0.5f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+
+    while (!glfwWindowShouldClose(window))
+    {
+        int width, height;
+        glfwGetFramebufferSize(window, &width, &height);
+        glViewport(0, 0, width, height);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+        glMatrixMode(GL_PROJECTION);
+        glLoadIdentity();
+        glMatrixMode(GL_MODELVIEW);
+        glLoadIdentity();
+
+        glOrtho(-1.5, 1.5, -1.5, 1.5, 2.5, -2.5);
+        glRotatef((float) glfwGetTime() * 10.f, 1.f, 0.1f, 1.f);
+        
+        display();
+        
+        glfwSwapBuffers(window);
+        glfwPollEvents();
+    }
+    glfwDestroyWindow(window);
+    glfwTerminate();
+
     sf_close(fp);
     fftw_destroy_plan(p);
     fftw_free(in);
